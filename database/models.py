@@ -5,8 +5,8 @@ from settings import DATABASE
 
 
 database = PostgresqlDatabase(
-    database=DATABASE['name'],
-    **{'user': DATABASE['user'], 'password': DATABASE['password'], 'host': DATABASE['host'], 'port': DATABASE['potr']}
+    DATABASE['name'],
+    **{'user': DATABASE['user'], 'password': DATABASE['password'], 'host': DATABASE['host'], 'port': DATABASE['port']}
 )
 
 
