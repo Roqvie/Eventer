@@ -27,6 +27,10 @@ bot.add_cog(moderate.EventsMod(bot))
 async def on_guild_join(guild: discord.Guild):
     connector.addNewGuild(guild.id, guild.name)
 
+@bot.event
+async def on_ready():
+    activity = discord.Activity(type=discord.ActivityType.watching, name="&help")
+    await bot.change_presence(activity=activity)
 
 @bot.command(name="help")
 async def help(ctx):
