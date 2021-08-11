@@ -14,7 +14,7 @@ from settings import BOT
 intents = discord.Intents().all()
 
 # Initializing bot
-bot = commands.Bot(command_prefix='&', help_command=None, intents=intents)
+bot = commands.Bot(command_prefix=BOT['prefix'], help_command=None, intents=intents)
 slash = SlashCommand(bot, sync_commands=True)
 
 # Adding Cogs
@@ -33,4 +33,4 @@ async def help(ctx):
     await ctx.send(embed=HELP_EMBED)
 
 # Run bot
-bot.run() 
+bot.run(BOT['token']) 
