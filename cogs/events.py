@@ -60,7 +60,7 @@ class EventType(commands.Cog):
     
     @commands.Cog.listener()
     async def on_raw_reaction_remove(self, payload: discord.RawReactionActionEvent):
-        """Adding event-role to user on reaction.
+        """Removing event-role to user on reaction.
         """
 
         guild = self.bot.get_guild(payload.guild_id)
@@ -272,6 +272,8 @@ class EventType(commands.Cog):
             await ctx.send(content="```md\nВ данный момент не создано никаких видов ивентов```")
             return
 
+        await ctx.send(content=f"Типы ивентов ({len(event_types)}):")
+
         for event_type in event_types:
             url = f'https://discord.com/channels/{event_type.guild_id}/{event_type.channel_id}/{event_type.message_id}'
             _message = Embed(
@@ -279,7 +281,7 @@ class EventType(commands.Cog):
                 description=f"Описание: {event_type.description}\nСообщение: [click]({url})\nID Вида ивента: {str(event_type.type_id)}\nАктивирован: {'да' if event_type.enabled else 'нет'}",
                 color=0x58b9ff
             )
-            await ctx.send(embed=_message)
+            await ctx.channel.send(embed=_message)
 
         
     
@@ -610,18 +612,20 @@ class Event(commands.Cog):
 
         # Getting events
         events = connector.getAllEvents(guild_id=ctx.guild.id)
-        if len(events[::]) == 0:
+        if len(events) == 0:
             await ctx.send(content="```md\nВ данный момент не создано никаких видов ивентов```")
             return
+        
+        await ctx.send(content=f"Ивенты ({len(events)}):")
 
         for event in events:
             url = f'https://discord.com/channels/{event.guild_id}/{event.channel_id}/{event.message_id}'
             _message = Embed(
                 title=f"**{event.title}**ㅤ{event.emoji}",
-                description=f"Описание: {event.details}\nСообщение: [click]({url})\nID Вида ивента: {event.type_id}\nАктивирован: {'да' if event.enabled else 'нет'}",
+                description=f"Описание: {event.details}\nСообщение: [click]({url})\nID Вида ивента: {event.event_id}\nАктивирован: {'да' if event.enabled else 'нет'}",
                 color=0x58b9ff
             )
-            await ctx.send(embed=_message)
+            await ctx.channel.send(embed=_message)
 
 
     @cog_ext.cog_subcommand(
