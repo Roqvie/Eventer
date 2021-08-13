@@ -177,7 +177,7 @@ class EventType(commands.Cog):
             description=event_type.description,
             color=0x7EBC89
         )
-        message = await channel.send(content="🟢 Запущен новый тип ивентов!\nДля подписки жми на реакцию", embed=NEW_EVENT)
+        message = await channel.send(content="@everyone 🟢 Запущен новый тип ивентов!\nДля подписки жми на реакцию", embed=NEW_EVENT)
         await message.add_reaction(emoji)
         
         # Update event type data
