@@ -14,17 +14,17 @@ def createEventsDropdown(records, model: typing.Union[models.Event, models.Event
 
         if  model == models.Event:
             options = [ create_select_option(
-                label=f"{event.title[:45]..}",
+                label=f"{event.title[:45]}..",
                 value=event.event_id,
-                description=f"{event.details[:45]..}",
+                description=f"{event.details[:45]}..",
                 emoji=event.emoji
                 ) for event in records ]
             placeholder = "Ивент"
         elif model == models.EventType:
             options = [ create_select_option(
-                label=f"{event_type.title[:45]..}",
+                label=f"{event_type.title[:45]}..",
                 value=event_type.type_id,
-                description=f"{event_type.description[:45]..}",
+                description=f"{event_type.description[:45]}..",
                 emoji=event.emoji
                 ) for event_type in records ]
             placeholder = "Тип ивента"
