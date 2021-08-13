@@ -8,11 +8,25 @@ from database import models
 def createEventsDropdown(records, model: typing.Union[models.Event, models.EventType], max_values: typing.Optional[int] = 1):
 
     try:
+        
+        if len(records) > 25:
+            records = records[len(records)-25:]
+
         if  model == models.Event:
-            options = [ create_select_option(label=event.title, value=event.event_id, description=event.details) for event in records ]
+            options = [ create_select_option(
+                label=f"{event.title[:45]..}",
+                value=event.event_id,
+                description=f"{event.details[:45]..}",
+                emoji=event.emoji
+                ) for event in records ]
             placeholder = "Ивент"
         elif model == models.EventType:
-            options = [ create_select_option(label=event_type.title, value=event_type.type_id, description=event_type.description) for event_type in records ]
+            options = [ create_select_option(
+                label=f"{event_type.title[:45]..}",
+                value=event_type.type_id,
+                description=f"{event_type.description[:45]..}",
+                emoji=event.emoji
+                ) for event_type in records ]
             placeholder = "Тип ивента"
         else:
             return None
