@@ -20,11 +20,10 @@ class EventsMod(commands.Cog):
 
 
     def _have_permission(self, user: discord.User, in_guild: discord.Guild) -> bool:
-        """Checks if user has "eventer" or server-owner permission
+        """Checks if user has server-owner permission
         """
-        guild = connector.getGuildByID(in_guild.id)
         
-        return (guild.moderator_role_id in [role.id for role in user.roles]) or (in_guild.owner == user)
+        return in_guild.owner == user
 
 
     @cog_ext.cog_subcommand(
@@ -44,7 +43,7 @@ class EventsMod(commands.Cog):
             return 
         
         # Getting guild and old role
-        guild =connector.getGuildByID(ctx.guild.id)
+        guild = connector.getGuildByID(ctx.guild.id)
         old_role = ctx.guild.get_role(guild.moderator_role_id) if guild.moderator_role_id else None
         
         # Set new role
