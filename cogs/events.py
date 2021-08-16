@@ -458,7 +458,7 @@ class Event(commands.Cog):
 
         # Save new type in database
         created_at = datetime.now()
-        connector.createNewEvent(type_id=selected_event_type_id, title=title, details=description, role_id=event_role.id, role_color=color, enabled=False, created_at=created_at, guild_id=ctx.guild.id)
+        connector.createNewEvent(type_id=selected_event_type_id, title=title, description=description, role_id=event_role.id, role_color=color, enabled=False, created_at=created_at, guild_id=ctx.guild.id)
 
         # Send back info message
         message_payload = [
@@ -516,7 +516,7 @@ class Event(commands.Cog):
         # Send notification message
         NEW_EVENT = Embed(
             title=event.title,
-            description=event.details,
+            description=event.description,
             color=0x7EBC89
         )
         message = await channel.send(content=f"{event_type_role.mention}, 🟢 Запущен новый ивент!\nДля участия жми на реакцию", embed=NEW_EVENT)
@@ -622,7 +622,7 @@ class Event(commands.Cog):
             url = f'https://discord.com/channels/{event.guild_id}/{event.channel_id}/{event.message_id}'
             _message = Embed(
                 title=f"**{event.title}**ㅤ{event.emoji}",
-                description=f"Описание: {event.details}\nСообщение: [click]({url})\nID Вида ивента: {event.event_id}\nАктивирован: {'да' if event.enabled else 'нет'}",
+                description=f"Описание: {event.description}\nСообщение: [click]({url})\nID Вида ивента: {event.event_id}\nАктивирован: {'да' if event.enabled else 'нет'}",
                 color=0x58b9ff
             )
             await ctx.channel.send(embed=_message)

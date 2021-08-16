@@ -42,7 +42,7 @@ class Event(BaseModel):
     event_id = BigIntegerField()
     type_id = BigIntegerField()
     title = TextField()
-    details = TextField(null=True)
+    description = TextField(null=True)
     role_id = BigIntegerField()
     role_color = TextField(null=True)
     created_at = DateTimeField()

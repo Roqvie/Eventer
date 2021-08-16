@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS "event" (
   "event_id" BIGINT NOT NULL NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 10000 MINVALUE 1 MAXVALUE 99999 CACHE 1 );,
   "type_id" BIGINT NOT NULL,
   "title" TEXT NOT NULL,
-  "details" TEXT,
+  "description" TEXT,
   "role_id" BIGINT NOT NULL,
   "role_color" TEXT,
   "created_at" TIMESTAMP NOT NULL,

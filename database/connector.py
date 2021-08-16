@@ -116,13 +116,13 @@ def createNewEvent(
     guild_id: typing.Union[int],
     type_id: typing.Union[int],
     title: typing.Union[str],
-    details: typing.Union[str],
+    description: typing.Union[str],
     role_id: typing.Union[int],
     role_color: typing.Union[str],
     enabled: typing.Union[bool],
     created_at,
 ):
-    event = models.Event.create(type_id=type_id,title=title,details=details,role_id=role_id,role_color=role_color,enabled=enabled,created_at=created_at,guild_id=guild_id)
+    event = models.Event.create(type_id=type_id,title=title,description=description,role_id=role_id,role_color=role_color,enabled=enabled,created_at=created_at,guild_id=guild_id)
 
 
 
