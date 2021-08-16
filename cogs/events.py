@@ -152,6 +152,9 @@ class EventType(commands.Cog):
 
         # Getting events
         event_types = connector.getAllEventTypes(guild_id=ctx.guild.id, enabled=False)
+        
+        if not emoji:
+            emoji = "<:bell:874724105037951046>"
 
         # Send message with select dropdown for selecting event to activate
         dropdown = utils.createEventsDropdown(event_types, model=models.EventType)
@@ -173,8 +176,7 @@ class EventType(commands.Cog):
             color=0x7EBC89
         )
 
-        if not emoji:
-            emoji = "<:bell:874724105037951046>"
+        
         message = await channel.send(content="@everyone 🟢 Запущен новый тип ивентов!\nДля подписки жми на реакцию", embed=NEW_EVENT)
         await message.add_reaction(emoji)
         
@@ -496,6 +498,9 @@ class Event(commands.Cog):
         # Getting events
         events = connector.getAllEvents(guild_id=ctx.guild.id, enabled=False)
 
+        if not emoji:
+            emoji = "<:bell:874724105037951046>"
+
         # Send message with select dropdown for selecting event to activate
         dropdown = utils.createEventsDropdown(events, models.Event)
         if dropdown is None:
@@ -519,8 +524,6 @@ class Event(commands.Cog):
         )
         message = await channel.send(content=f"{event_type_role.mention}, 🟢 Запущен новый ивент!\nДля участия жми на реакцию", embed=NEW_EVENT)
 
-        if not emoji:
-            emoji = "<:bell:874724105037951046>"
         await message.add_reaction(emoji)
         
         # Update event type data
