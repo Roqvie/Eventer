@@ -55,10 +55,11 @@ def _createEventSelectOptions(events: typing.Union[typing.List[models.Event], ty
         label = f"{event.title[:45]}.." if len(event.title) > 45 else f"{event.title}"
         value = event.event_id if isinstance(event, models.Event) else event.type_id
         description = f"{event.description[:45]}.." if len(event.description) > 45 else f"{event.description}"
+        # Getting partial emoji
         emoji = discord.PartialEmoji(
             name=event.emoji[1:-1].split(':')[1],
             animated=True if event.emoji[1:-1].split(':')[0] == "a" else False,
-            id=int(event.emoji[1:-1].split(':')[2])
+            id=int(event.emoji[1:-1].split(':')[2]) if ":" in event.emoji else None
         )
         options.append(
             create_select_option(label, value, emoji, description)
