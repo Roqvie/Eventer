@@ -3,15 +3,10 @@ from datetime import datetime
 
 import discord
 from discord import Embed
-from discord import message
-from discord import colour
-from discord import embeds
-from discord import emoji
 from discord.ext import commands
 
 from discord_slash import cog_ext
 from discord_slash.utils.manage_components import wait_for_component
-from peewee import Desc
 
 from . import options
 from . import decoration
@@ -159,7 +154,7 @@ class EventType(commands.Cog):
         event_types = connector.getAllEventTypes(guild_id=ctx.guild.id, enabled=False)
 
         # Send message with select dropdown for selecting event to activate
-        dropdown = utils.createEventsDropdown(records=event_types, model=models.EventType)
+        dropdown = utils.createEventsDropdown(event_types, model=models.EventType)
         if dropdown is None:
             await ctx.send(embed=decoration.embeds.ERRORS["NO_ITEMS_IN_DROPDOWN"])
             return
@@ -523,7 +518,7 @@ class Event(commands.Cog):
             color=0x7EBC89
         )
         message = await channel.send(content=f"{event_type_role.mention}, 🟢 Запущен новый ивент!\nДля участия жми на реакцию", embed=NEW_EVENT)
-        
+
         if not emoji:
             emoji = "<:bell:874724105037951046>"
         await message.add_reaction(emoji)
