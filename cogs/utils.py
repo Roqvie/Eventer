@@ -3,7 +3,7 @@ import discord
 from discord_slash.utils.manage_components import create_select, create_select_option, create_actionrow
 
 from database import models
-import discord_slash.error.IncorrectFormat
+from discord_slash.error import IncorrectFormat
 
 
 def syncErrorHandler(func):
@@ -12,7 +12,7 @@ def syncErrorHandler(func):
         try:
             result = func(*args, **kwargs)
             return result
-        except discord_slash.error.IncorrectFormat:
+        except IncorrectFormat:
             return None
 
     return wrapper
