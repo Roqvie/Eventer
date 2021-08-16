@@ -2,10 +2,8 @@ import typing
 from discord_slash.utils.manage_components import create_select, create_select_option, create_actionrow
 
 from database import models
-from .errors import syncErrorHandler
 
 
-@syncErrorHandler
 def createEventsDropdown(records, model: typing.Union[models.Event, models.EventType], max_values: typing.Optional[int] = 1):
     """Creates select options dropdown component for message
     """
