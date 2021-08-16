@@ -1,34 +1,36 @@
 import typing
+import discord
 from discord_slash.utils.manage_components import create_select, create_select_option, create_actionrow
 
 from database import models
 
 
-def createEventsDropdown(records, model: typing.Union[models.Event, models.EventType], max_values: typing.Optional[int] = 1):
-    """Creates select options dropdown component for message
+def createEventsDropdown(
+        events: typing.Union[typing.List[models.Event], typing.List[models.Event]],
+        model: typing.Union[models.Event, models.EventType],
+        max_values: typing.Optional[int] = 1
+    ):
+    """"Creates select options dropdown component for message.
+
+    Args:
+        events (typing.Union[typing.List[models.Event], typing.List[models.Event]]): Events or Event types lsit
+        model (typing.Union[models.Event, models.EventType]): Type of event model
+        max_values (typing.Optional[int], optional): Maximum count of values to be selected. Defaults to 1.
+
+    Returns:
+        message component
     """
 
-    if len(records) > 25:
-        records = records[len(records)-25:]
+    if len(events) > 25:
+        events = events[len(events)-25:]
 
     if  model == models.Event:
-        options = [ create_select_option(
-            label=f"{event.title[:45]}",
-            value=event.event_id,
-            description=f"{event.details[:45]}.."
-            ) for event in records ]
         placeholder = "Ивент"
     elif model == models.EventType:
-        options = [ create_select_option(
-            label=f"{event_type.title[:45]}",
-            value=event_type.type_id,
-            description=f"{event_type.description[:45]}.."
-            ) for event_type in records ]
         placeholder = "Тип ивента"
-    else:
-        return None
+
     select = create_select(
-        options=options,
+        options=_createEventSelectOptions(events),
         placeholder=placeholder,
         min_values=1,
         max_values=max_values,
@@ -36,5 +38,34 @@ def createEventsDropdown(records, model: typing.Union[models.Event, models.Event
     component = create_actionrow(select)
 
     return component
+
+
+def _createEventSelectOptions(events: typing.Union[typing.List[models.Event], typing.List[models.Event]]) -> list:
+    """Creates options for dropdown component
+
+    Args:
+        events (typing.Union[typing.List[models.Event], typing.List[models.Event]]): List of events or event types
+
+    Returns:
+        list: List with the generated options
+    """
+    
+    options = []
+    for event in events:
+        label = f"{event.title[:45]}.." if len(event.title) > 45 else f"{event.title}"
+        value = event.event_id
+        description = f"{event.description[:45]}.." if len(event.description) > 45 else f"{event.description}"
+        emoji = discord.PartialEmoji(
+            name=event.emoji[1:-1].split(':')[1],
+            animated=True if event.emoji[1:-1].split(':')[0] == "a" else False,
+            id=int(event.emoji[1:-1].split(':')[2])
+        )
+        options.append(
+            create_select_option(label, value, emoji, description)
+        )
+
+    return options
+
+
 
     
