@@ -29,7 +29,7 @@ class EventType(BaseModel):
     enabled = BooleanField(null=True)
     message_id = BigIntegerField(null=True)
     channel_id = BigIntegerField(null=True)
-    emoji = TextField(null=True)
+    emoji = TextField(null=True, default='<:bell:874724105037951046>')
 
     class Meta:
         table_name = 'event_type'
@@ -51,7 +51,7 @@ class Event(BaseModel):
     enabled = BooleanField(null=True)
     message_id = BigIntegerField(null=True)
     channel_id = BigIntegerField(null=True)
-    emoji = TextField(null=True)
+    emoji = TextField(null=True, default='<:bell:874724105037951046>')
     
     class Meta:
         table_name = 'event'

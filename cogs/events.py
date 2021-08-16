@@ -152,9 +152,6 @@ class EventType(commands.Cog):
 
         # Getting events
         event_types = connector.getAllEventTypes(guild_id=ctx.guild.id, enabled=False)
-        
-        if not emoji:
-            emoji = "<:bell:874724105037951046>"
 
         # Send message with select dropdown for selecting event to activate
         dropdown = utils.createEventsDropdown(event_types, model=models.EventType)
@@ -497,9 +494,6 @@ class Event(commands.Cog):
 
         # Getting events
         events = connector.getAllEvents(guild_id=ctx.guild.id, enabled=False)
-
-        if not emoji:
-            emoji = "<:bell:874724105037951046>"
 
         # Send message with select dropdown for selecting event to activate
         dropdown = utils.createEventsDropdown(events, models.Event)
