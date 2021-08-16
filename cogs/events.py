@@ -136,7 +136,7 @@ class EventType(commands.Cog):
         self,
         ctx,
         channel: typing.Union[discord.TextChannel],
-        emoji: typing.Optional[str]
+        emoji: typing.Optional[str] = None
     ):
         """Enabling new type of events
 
@@ -479,7 +479,7 @@ class Event(commands.Cog):
         self,
         ctx,
         channel: typing.Union[discord.TextChannel],
-        emoji: typing.Optional[str]
+        emoji: typing.Optional[str] = None
     ):
         """Enabling new event
 
