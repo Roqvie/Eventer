@@ -3,8 +3,10 @@ import discord
 from discord_slash.utils.manage_components import create_select, create_select_option, create_actionrow
 
 from database import models
+from .errors import syncErrorHandler
 
 
+@syncErrorHandler
 def createEventsDropdown(
         events: typing.Union[typing.List[models.Event], typing.List[models.Event]],
         model: typing.Union[models.Event, models.EventType],
