@@ -141,7 +141,7 @@ class EventType(commands.Cog):
         self,
         ctx,
         channel: typing.Union[discord.TextChannel],
-        emoji: typing.Optional[str] = "<:bell:874724105037951046>"
+        emoji: typing.Optional[str]
     ):
         """Enabling new type of events
 
@@ -177,6 +177,9 @@ class EventType(commands.Cog):
             description=event_type.description,
             color=0x7EBC89
         )
+
+        if not emoji:
+            emoji = "<:bell:874724105037951046>"
         message = await channel.send(content="@everyone 🟢 Запущен новый тип ивентов!\nДля подписки жми на реакцию", embed=NEW_EVENT)
         await message.add_reaction(emoji)
         
@@ -481,7 +484,7 @@ class Event(commands.Cog):
         self,
         ctx,
         channel: typing.Union[discord.TextChannel],
-        emoji: typing.Optional[str] = "<:bell:874724105037951046>"
+        emoji: typing.Optional[str]
     ):
         """Enabling new event
 
@@ -520,8 +523,9 @@ class Event(commands.Cog):
             color=0x7EBC89
         )
         message = await channel.send(content=f"{event_type_role.mention}, 🟢 Запущен новый ивент!\nДля участия жми на реакцию", embed=NEW_EVENT)
-        if emoji is None:
-            emoji = "🔔"
+        
+        if not emoji:
+            emoji = "<:bell:874724105037951046>"
         await message.add_reaction(emoji)
         
         # Update event type data
