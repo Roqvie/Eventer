@@ -26,7 +26,7 @@ def createEventsDropdown(records, model: typing.Union[models.Event, models.Event
             label=f"{event_type.title[:45]}..",
             value=event_type.type_id,
             description=f"{event_type.description[:45]}..",
-            emoji=event.emoji
+            emoji=event_type.emoji
             ) for event_type in records ]
         placeholder = "Тип ивента"
     else:
